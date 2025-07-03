@@ -1,0 +1,109 @@
+/* src/styles/SignupPage.css */
+
+.signup-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background is handled by the global .background div in the component and global.css */
+  font-family: 'Poppins', sans-serif;
+  position: relative; /* For z-index of background if needed */
+}
+
+/* The background and gradientShift animation are expected to be handled by the global.css
+   and applied to the <div className="background"> element in the component. */
+/* @keyframes gradientShift { ... } -> Removed as it's global now */
+
+.signup-box {
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05); /* Semi-transparent background */
+  border-radius: 30px;
+  border: 1px solid #00ffe7; /* Neon border */
+  color: #00ffe7; /* Neon text for titles/labels */
+  animation: fadeIn 0.8s ease-in-out;
+  box-sizing: border-box; /* Include padding in element's total width/height */
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #00ffe7; /* Initial neon shadow */
+  z-index: 1; /* Ensure it's above the background */
+}
+
+.signup-box:hover {
+  box-shadow: 0 0 15px #00ffe7, 0 0 30px #00ffe7; /* Larger neon shadow on hover */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signup-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #00ffe7; /* Neon color for heading */
+}
+
+/* Input, textarea, and select styling. Most base styles are inherited from global.css.
+   Overrides or specific additions can be made here. */
+.signup-box input,
+.signup-box select {
+  /* Inherits: width, padding, margin, border, color, font, outline, transition, border-radius */
+  /* Specific override if needed, otherwise rely on global.css */
+  background: rgba(255, 255, 255, 0.05); /* Ensure base background is consistent */
+}
+
+
+
+.signup-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 18px;
+  background: #00ffe7; /* Neon button color */
+  border: none;
+  color: #000;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-box button:hover {
+  background: #00ccbe; /* Darker neon on hover */
+  box-shadow: 0 0 12px #00ffe7, 0 0 25px #00ffe7; /* Neon shadow on hover */
+}
+
+.back-btn {
+  margin-top: 10px;
+  background: transparent; /* Transparent button */
+  color: #00ffe7; /* Neon text color */
+  border: 2px solid #00ffe7; /* Neon border */
+}
+
+.back-btn:hover {
+  background: #00ffe7; /* Solid neon on hover */
+  color: #000;
+}
+
+.signup-box select {
+  appearance: none; /* Remove default select dropdown arrow */
+  /* Inherits background-color, color, border, border-radius, padding, cursor */
+  color: #00ffe7; /* Text color for selected option */
+}
+
+.signup-box select option {
+  background-color: #000000; /* Dark background for dropdown options */
+  color: #00ffe7; /* Neon text for dropdown options */
+}
+
+/* Autofill styling is handled globally in src/index.css */
+/* Custom text selection highlight is handled globally in src/index.css */
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .signup-box {
+    width: 90%;
+    padding: 30px;
+  }
+}

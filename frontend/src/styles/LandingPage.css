@@ -1,0 +1,201 @@
+/* Page.css */
+
+html, body {
+  /* ... other styles ... */
+  background: #000000; /* Ensure this is black */
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000000; /* This needs to be black */
+  z-index: -1;
+  /* Remove any gradient related properties if they exist */
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: #000000;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+#tsparticles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  /* Changed background to solid black */
+  background: #000000;
+  /* Removed background-size and animation as they are no longer needed for a solid color */
+  z-index: -1;
+}
+
+/* Removed @keyframes gradientShift as it's no longer used */
+
+.logo {
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffe7;
+  text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  font-family: 'Poppins', sans-serif;
+  gap: 10px;
+  animation: glowPulse 1s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7, 0 0 20px #00ffe7; }
+  50% { text-shadow: 0 0 20px #00ffe7, 0 0 30px #00ffe7, 0 0 40px #00ffe7; }
+  100% { text-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7, 0 0 20px #00ffe7; }
+}
+
+.hero {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-container {
+  position: relative;
+  display: inline-block;
+  padding: 2rem 4rem;
+  border: 2px solid #0ff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+  transition: box-shadow 0.3s ease;
+}
+
+.text {
+  font-size: 15vw;
+  color: black;
+  background: black;
+  -webkit-background-clip: text;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.text::before {
+  content: 'hire.in';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  background: radial-gradient(circle 20vmin at var(--x, 50%) var(--y, 50%), cyan, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px cyan) drop-shadow(0 0 16px cyan);
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.text-container:hover .text::before {
+  opacity: 1;
+}
+
+.text-container:hover {
+  box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 80px cyan;
+}
+
+.radial-menu {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 999;
+}
+
+.menu-button {
+  background: #00ffe7;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+  cursor: pointer;
+  color: #000;
+  font-size: 24px;
+  transition: 0.3s;
+}
+
+.menu-items {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+}
+
+.menu-items.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.menu-item {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 255, 231, 0.2);
+  border: 2px solid #00ffe7;
+  border-radius: 50%;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.menu-item:hover {
+  background: #00ffe7;
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #00ffe7;
+}
+
+.tooltip {
+  position: absolute;
+  right: 60px;
+  color: #00ffe7;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.menu-item:hover .tooltip {
+  opacity: 1;
+}
+
+/* Removed .cursor-canvas as CanvasCursor is no longer used */
+
+@media (max-width: 400px) {
+  .text { font-size: 12vw; }
+  .text-container { padding: 1rem 2rem; }
+}

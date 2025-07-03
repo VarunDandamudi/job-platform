@@ -1,0 +1,176 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  /* Use Poppins as default, Orbitron specifically for loading screen */
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000000; /* Dark background - this is correct */
+  color: #e6edf3; /* Light text color */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Ensure html also has black background for full coverage */
+html {
+  background-color: #000000;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Basic button styling */
+button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+input, textarea, select {
+  padding: 12px;
+  margin: 10px 0; /* Add margin for spacing */
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 231, 0.3); /* Subtle neon border */
+  background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent background */
+  color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #00ffe7; /* Neon border on focus */
+  box-shadow: 0 0 10px rgba(0, 255, 231, 0.5); /* Neon shadow on focus */
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly brighter background on focus */
+}
+
+/* Placeholder text color */
+::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Global background layer for all pages, to be placed in the component's render */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000000; /* THIS IS THE FIX: Set to solid black */
+  /* REMOVED: background-size and animation properties which were causing the gradient */
+  z-index: -1;
+}
+
+/* REMOVED: @keyframes gradientShift as it's no longer used for the main background */
+
+
+/* Global logo styling for shared navbars */
+.logo {
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffe7;
+  text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  gap: 10px;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 5px #00ffe7; }
+  50% { text-shadow: 0 0 30px #00ffe7; }
+  100% { text-shadow: 0 0 5px #00ffe7; }
+}
+
+/* Global navbar style */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  z-index: 100;
+  border-bottom: 1px solid #00ffe7;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  color: #00ffe7;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  gap: 10px;
+}
+
+.logout-btn {
+  background: #00ffe7;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 50px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none; /* For react-router-dom Link component */
+}
+
+.logout-btn:hover {
+  background: #00ccbe;
+  box-shadow: 0 0 12px #00ffe7;
+}
+
+.logout-text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Message Display styles */
+.neon-border-animation {
+  box-shadow: 0 0 5px rgba(255,255,255,0.7), 0 0 10px rgba(0,255,255,0.7), 0 0 15px rgba(0,255,255,0.7);
+  animation: pulse-border 1.5s infinite alternate;
+}
+
+@keyframes pulse-border {
+  from { box-shadow: 0 0 5px #00ffe7, 0 0 10px #00ffe7; }
+  to { box-shadow: 0 0 15px #00ffe7, 0 0 25px #00ffe7; }
+}
+
+/* Autofill background fix for Chrome */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #000000 inset !important; /* Dark background */
+  -webkit-text-fill-color: #ffffff !important; /* White text */
+  font-weight: 500;
+  transition: background-color 5000s ease-in-out 0s;
+}

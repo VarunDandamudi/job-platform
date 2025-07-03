@@ -1,0 +1,486 @@
+/* src/styles/RecommendationsPage.css */
+
+/* === Wrapper and Layout === */
+.recommendations-wrapper { /* Renamed from .recommendations-page-wrapper for consistency with JS */
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  /* padding-top: 80px; */ /* REMOVED: No longer needed after removing top nav bar */
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* === Particles Background === */
+#particles-container-recommendations {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* === Header (for "All Available Job Listings") === */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the header text */
+  margin-top: 30px; /* Add some top margin as padding-top was removed from wrapper */
+  margin-bottom: 40px;
+}
+
+.header-icon { /* Styles for header icon if you decide to re-add an icon */
+  font-size: 38px;
+  color: #00ffe7;
+  margin-right: 15px;
+}
+
+.header-text {
+  font-size: 38px;
+  color: #00ffe7;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+  text-align: center;
+}
+
+
+/* === Recommendations Grid (now holds the cards) === */
+.recommendation-grid { /* Renamed from .recommendations-container for consistency with JS */
+  padding: 20px;
+  margin: 20px auto;
+  min-height: calc(100vh - 150px);
+  width: 100%;
+  max-width: 900px;
+  display: grid; /* ADDED: For grid layout */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* ADDED: Responsive columns */
+  gap: 20px; /* ADDED: Spacing between cards */
+  
+  /* Moved styles from original .recommendations-container */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 15px #00ffe7;
+  border: 1px solid #00ffe7;
+  box-sizing: border-box;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: all 0.3s ease-in-out;
+}
+
+.recommendation-grid:hover { /* Moved from original .recommendations-container */
+  box-shadow: 0 0 25px #00ffe7, 0 0 50px #00ffe7;
+  transform: scale(1.01);
+}
+
+/* === Messages === */
+.loading-message, .no-jobs-message { /* Renamed from .no-recommendations-message */
+  color: #00ffe7;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  text-shadow: 0 0 5px #00ffe7;
+  width: 100%; /* Ensure it spans full width in the grid */
+  grid-column: 1 / -1; /* Make it span all columns in the grid */
+}
+
+/* === Job Card (Individual Job Display) === */
+.job-card { /* Renamed from .job-details-card to match JS */
+  background: rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid rgba(155, 89, 182, 0.5);
+  box-shadow: 0 0 10px rgba(155, 89, 182, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer; /* Added for clickability */
+  display: flex; /* Added for internal layout of card content */
+  flex-direction: column; /* Added for internal layout of card content */
+  justify-content: space-between; /* Added for internal layout of card content */
+}
+
+.job-card::before { /* Renamed from .job-details-card */
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(155, 89, 182, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  transform: rotate(0deg);
+  z-index: -1;
+}
+
+.job-card:hover { /* Renamed from .job-details-card */
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(155, 89, 182, 0.7), 0 0 40px rgba(155, 89, 182, 0.5);
+}
+
+.job-card:hover::before { /* Renamed from .job-details-card */
+  opacity: 1;
+  animation: cardGlowRotate 8s linear infinite;
+}
+
+@keyframes cardGlowRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* === Card Header === */
+/* The elements like .card-header, .card-title, .card-description etc.
+   are for the job *details* overlay, not the grid cards directly.
+   They are fine as they are for the overlay.
+*/
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00ffe7;
+  text-shadow: 0 0 5px #00ffe7;
+  margin-right: 15px;
+}
+
+/* === Match Badge === */
+.match-score-badge { /* This seems to be for the detail overlay, not job-card directly */
+  background: #9b59b6;
+  color: white;
+  font-weight: bold;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 0 8px rgba(155, 89, 182, 0.6);
+  animation: pulseBadge 2s infinite alternate;
+}
+/* The .match-score class on the job-card itself will be styled below */
+.match-score {
+    color: #9b59b6;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-top: auto; /* Pushes the score to the bottom of the card */
+}
+
+
+@keyframes pulseBadge {
+  from { box-shadow: 0 0 8px rgba(155, 89, 182, 0.6); transform: scale(1); }
+  to { box-shadow: 0 0 15px rgba(155, 89, 182, 0.9); transform: scale(1.03); }
+}
+
+/* === Description & Meta === */
+.card-description {
+  font-size: 1rem;
+  color: #d3d3d3;
+  margin-bottom: 15px;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.meta-item {
+  background: rgba(0, 255, 231, 0.15);
+  color: #00ffe7;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(0, 255, 231, 0.3);
+}
+
+/* === Skills === */
+.skills-label {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-item {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.no-skills-message {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+/* === Poster Info === */
+.posted-by-info {
+  font-size: 0.75rem;
+  color: #b0b0b0;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.poster-username {
+  color: #00ffe7;
+  font-weight: 600;
+}
+
+
+/* === Job Detail Overlay === */
+.job-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.job-detail-card {
+    background: #282c34; /* Darker background for overlay card */
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 255, 231, 0.5); /* Glow effect */
+    border: 1px solid #00ffe7;
+}
+
+.job-detail-card h2 {
+    color: #00ffe7;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    text-shadow: 0 0 8px #00ffe7;
+}
+
+.job-detail-card p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.job-detail-card strong {
+    color: #00ffe7;
+}
+
+.job-detail-card button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.job-detail-card button:hover {
+    background-color: #c0392b;
+}
+
+
+/* === Radial Menu === */
+.radialMenuWrapper { /* Renamed from .radialMenu */
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 999;
+}
+
+.radialMenuBtn { /* Renamed from .menuButton */
+  background: #00ffe7;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  /* box-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7; */ /* Removed icon-specific glow */
+  color: #000;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  font-weight: bold; /* Added for text visibility */
+}
+
+.menuItems {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.menuItemsActive {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.menuItem {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 255, 231, 0.2);
+  border: 2px solid #00ffe7;
+  border-radius: 50%;
+  color: #00ffe7; /* Ensures text is visible */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  background: #00ffe7;
+  color: #000; /* Ensures text color changes on hover */
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #00ffe7;
+}
+
+.tooltip {
+  position: absolute;
+  right: 60px;
+  font-size: 14px;
+  color: #00ffe7;
+  pointer-events: none;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translateX(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.menuItem:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* === Media Queries === */
+@media (max-width: 768px) {
+  .recommendation-grid { /* Renamed from .recommendations-container */
+    padding: 15px;
+    max-width: 700px;
+  }
+
+  .header-text { /* Renamed from .recommendations-title */
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .radialMenuWrapper { /* Renamed from .radialMenu */
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .radialMenuBtn { /* Renamed from .menuButton */
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .menuItems button {
+  background: rgba(0, 255, 231, 0.2);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #00ffe7;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+
+.menuItems button:hover {
+  background: #00ffe7;
+  color: #000;
+}
+
+
+  .menuItems {
+    bottom: 65px;
+    gap: 10px;
+  }
+
+  .menuItem {
+    width: 45px;
+    height: 45px;
+  }
+
+  .tooltip {
+    right: 55px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendation-grid { /* Renamed from .recommendations-container */
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .header-text { /* Renamed from .recommendations-title */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .match-score-badge {
+    margin-top: 5px;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+
+  .meta-item,
+  .skill-item {
+    font-size: 0.75rem;
+  }
+}

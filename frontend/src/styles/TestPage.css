@@ -1,0 +1,239 @@
+/* src/styles/TestPage.css */
+
+/* Particles Container: Ensure it covers the background for its particles */
+#particles-container-login { /* Changed ID to be specific to Login Page particles */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.loginSection {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  transform: scale(1.1); /* Slightly enlarge the whole section */
+}
+
+.loginBox {
+  width: 400px;
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid #00ffe7; /* Changed border color for consistency */
+  box-shadow: 0 0 20px #00ffe7;
+  color: #fff;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Ensures padding doesn't increase total width */
+}
+
+/* Hover effect for login box */
+.loginBox:hover {
+  box-shadow: 0 0 30px #00ffe7, 0 0 60px #00ffe7;
+}
+
+/* 3D Spin Animation */
+.rotate {
+  animation: spin3D 15s linear infinite;
+}
+
+@keyframes spin3D {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.loginBox h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #00ffe7;
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper i {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #00ffe7;
+  font-size: 18px;
+}
+
+/* Specific styling for Login Button */
+.login-submit-btn { /* New class for the login button */
+  margin-top: 20px; /* Space above the button */
+  margin-bottom: 10px; /* Space below the login button, before signup */
+  background: #00ffe7; /* Neon background */
+  color: #000; /* Dark text for contrast */
+  border: 2px solid #00ffe7; /* Neon border */
+  text-decoration: none; /* No underline */
+  display: block; /* Make it a block-level element */
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%; /* Ensure it takes full width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.login-submit-btn:hover {
+  background: #00ccbe; /* Slightly darker neon on hover */
+  color: #000;
+  box-shadow: 0 0 15px #00ffe7, 0 0 30px #00ffe7; /* Enhanced glow on hover */
+}
+
+
+/* Specific styling for Signup Button in login box */
+.signupButton {
+  margin-top: 10px; /* Space between login and signup buttons */
+  background: transparent; /* Transparent background */
+  color: #00ffe7; /* Neon text color */
+  border: 2px solid #00ffe7; /* Neon border */
+  text-decoration: none; /* Remove underline for Link component */
+  display: block; /* Make Link behave like a block button */
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer; /* Ensure cursor pointer */
+  transition: 0.3s;
+}
+
+.signupButton:hover {
+  background: #00ffe7;
+  color: #000;
+  box-shadow: 0 0 12px #00ffe7, 0 0 25px #00ffe7;
+}
+
+
+/* Radial Menu - Specific to this page if it differs from LandingPage.
+   Most of these styles are the same as LandingPage.css, consider
+   moving common radial menu styles to a global file if many pages use it. */
+.radialMenu {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 999;
+}
+
+.menuButton {
+  background: #00ffe7;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+  color: #000;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex; /* Centering content */
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.menuItems {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(20px);
+}
+
+.menuItemsActive {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.menuItem {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 255, 231, 0.2);
+  border: 2px solid #00ffe7;
+  border-radius: 50%;
+  color: #00ffe7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s, color 0.2s;
+  text-decoration: none; /* For Link components */
+}
+
+.menuItem:hover {
+  background: #00ffe7;
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #00ffe7;
+}
+
+.tooltip {
+  position: absolute;
+  right: 60px;
+  font-size: 14px;
+  color: #00ffe7;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, right 0.2s ease;
+  white-space: nowrap;
+  transform: translateX(10px);
+}
+
+.menuItem:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 400px) {
+  .loginBox {
+    width: 90%;
+    padding: 30px;
+  }
+  .radialMenu {
+    bottom: 20px;
+    right: 20px;
+  }
+  .menuButton {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  .menuItems {
+    bottom: 65px;
+    gap: 10px;
+  }
+  .menuItem {
+    width: 45px;
+    height: 45px;
+  }
+  .tooltip {
+    right: 55px;
+    font-size: 12px;
+  }
+}
+
+/* Autofill styling handled globally in index.css */
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #111 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
+} */
